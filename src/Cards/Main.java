@@ -71,6 +71,6 @@ public class Main extends Application {
         }
 
         CardLearning test = new CardLearning(cards);
-        test.main();
+        test.main();//NOTE возможно стоит это перенести в Gui
     }
 }

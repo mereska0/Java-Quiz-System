@@ -13,7 +13,7 @@ public class CardCollection {
         cards = new ArrayList<>();
     }
 
-    public void add(Card card) {
+    public void add(Card card) {//NOTE: static pls
         cards.add(card);
         size++;
     }

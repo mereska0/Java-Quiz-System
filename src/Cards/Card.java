@@ -25,7 +25,7 @@ public class Card {
 
     public boolean getCond() {
         return cond;
-    }//get condition?
+    }//NOTE: get condition?
 
     public String getFace() {
         return face;
