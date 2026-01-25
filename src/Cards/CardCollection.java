@@ -1,5 +1,6 @@
 package Cards;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CardCollection {
@@ -13,7 +14,7 @@ public class CardCollection {
         cards = new ArrayList<>();
     }
 
-    public void add(Card card) {//NOTE: static pls
+    public void add(Card card) {
         cards.add(card);
         size++;
     }
@@ -37,6 +38,14 @@ public class CardCollection {
 
     public int getSize() {
         return size;
+    }
+
+    public void exportCards() throws IOException {
+
+    }
+
+    public void importCards() throws IOException {
+
     }
 
 }

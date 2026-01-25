@@ -3,18 +3,19 @@ package Quiz;
 import java.util.List;
 
 public class Question {
-    private static int correct;
-    private static String text = "";
-    private static List<String> answers;
+    private int correct;
+    private String text = "";
+    private List<String> answers;
+
     public Question(String text, List<String> answers, int correct){
-        Question.text = text;
-        Question.answers = answers;
-        Question.correct = correct;
+        this.text = text;
+        this.answers = answers;
+        this.correct = correct;
     }
-    public static String getText(){
+    public String getText(){
         return text;
     }
-    public static String getCorrect(){
+    public String getCorrect(){
         return answers.get(correct);
     }
 }
