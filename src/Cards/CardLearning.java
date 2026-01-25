@@ -68,12 +68,10 @@ public class CardLearning {
 
     public void putDone() {
         doneCards.add(cards.get(index));
-        cards.get(index).setCond(true);
     }
 
     public void putUndone() {
         undoneCards.add(cards.get(index));
-        cards.get(index).setCond(false);
     }
 
     public void learn(Scanner scanner) {

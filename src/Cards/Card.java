@@ -3,12 +3,12 @@ package Cards;
 public class Card {
     private String face;
     private String back;
-    private boolean cond;
+    private boolean showFace;
 
     public Card(String face, String back) {
         this.face = face;
         this.back = back;
-        cond = false;
+        showFace = true;
     }
 
     public void setFace(String face) {
@@ -19,12 +19,12 @@ public class Card {
         this.back = back;
     }
 
-    public void setCond(boolean cond) {
-        this.cond = cond;
+    public void setFace(boolean cond) {
+        this.showFace = cond;
     }
 
-    public boolean getCond() {
-        return cond;
+    public boolean getShowFace() {
+        return showFace;
     }
 
     public String getFace() {

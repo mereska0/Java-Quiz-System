@@ -2,11 +2,9 @@ package Cards;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -14,35 +12,27 @@ import javafx.stage.Stage;
 import java.util.Scanner;
 
 public class Main extends Application {
+    private boolean showFace = true;
     @Override
     public void start(Stage primaryStage) {
-        Circle bottomCircle = new Circle(50);
-        Circle midCircle = new Circle(40);
-        Circle topCircle = new Circle(30);
-        Polygon triangle = new Polygon();
-        triangle.getPoints().addAll(
-                0.0, 0.0,
-                30.0, 10.0,
-                0.0, 20.0
-        );
-        triangle.setFill(Color.ORANGE);
-        bottomCircle.setStroke(Color.BLACK);
-        bottomCircle.setStrokeWidth(5);
-        bottomCircle.setFill(Color.WHITE);
-        midCircle.setStroke(Color.BLACK);
-        midCircle.setStrokeWidth(5);
-        midCircle.setFill(Color.WHITE);
-        topCircle.setStroke(Color.BLACK);
-        topCircle.setStrokeWidth(5);
-        topCircle.setFill(Color.WHITE);
-        GridPane pane = new GridPane();
-
-
-        pane.add(topCircle, 1, 0);     // Верхний круг в строке 0
-        pane.add(midCircle, 1, 1);     // Средний круг в строке 1
-        pane.add(bottomCircle, 1, 2);  // Нижний круг в строке 2
-        pane.add(triangle, 2, 0);          // Нос в строке 0, колонка 2
-
+        Rectangle card = new Rectangle(200, 300);
+        card.setFill(Color.WHITE);
+        card.setStroke(Color.BLACK);
+        card.setStrokeWidth(5);
+        Text text = new Text("Тайна");
+        text.setStyle("-fx-font-size: 20");
+        card.setOnMouseClicked(e -> {
+            if (showFace) {
+                text.setText("Тайна");
+            } else {
+                text.setText("Я тебя люблю");
+            }
+            showFace = !showFace;
+        });
+        Button button = new Button("Change");
+        StackPane pane = new StackPane();
+        pane.getChildren().add(card);
+        pane.getChildren().add(text);
         Scene scene = new Scene(pane, 400, 400);
 
         primaryStage.setScene(scene);
