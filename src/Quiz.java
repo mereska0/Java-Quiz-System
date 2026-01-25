@@ -1,3 +1,0 @@
-public class Quiz {
-    //code will be down there...
-}

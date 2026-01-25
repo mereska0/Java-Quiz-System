@@ -27,6 +27,7 @@ public class Card {
         return showFace;
     }
 
+
     public String getFace() {
         return face;
     }
