@@ -11,7 +11,7 @@ public class Test {
                 List.of("1", "2", "3"), 1);
 
         QuizCollection collection = new QuizCollection();
-        collection.add("test");
+        collection.add(quiz);
         Scanner sc = new Scanner(System.in);
         System.out.println("Введи start чтобы начать квиз");
         String message = sc.next().trim();
@@ -32,13 +32,14 @@ public class Test {
             message = sc.next().trim();
             Quiz newQuiz = new Quiz(message);
             while (!message.equals("n")) {
+                sc.nextLine();
                 System.out.println("введи вопрос для своего квиза");
-                String text = sc.next().trim();
+                String text = sc.nextLine().trim();
                 System.out.println("введи количество вопросов в квизе");
                 int num = sc.nextInt();
                 List<String> questions = new ArrayList<>();
                 for (int i = 0; i < num; i++) {
-                    System.out.println("введи " + i + 1 + " ответ");
+                    System.out.println("введи " + (i + 1) + " ответ");
                     questions.add(sc.next().trim());
                 }
                 System.out.println("введи номер правильного ответа");
@@ -47,12 +48,25 @@ public class Test {
                 System.out.println("создать еще один вопрос?(y/n)");
                 message = sc.next().trim();
             }
+            collection.add(newQuiz);
+            System.out.println("Квиз '" + newQuiz.getName() + "' создан!");
         }else{
             System.out.println("квизы:");
-            collection.getCollection();
+            System.out.println(collection.getCollectionString());
         }
+        sc.nextLine();
         System.out.println("введи /start <название> чтобы запустить квиз");
-        message = sc.next().trim();
-        //TODO QuizLearn + chack logic
+        message = sc.nextLine().trim();
+        if (message.contains("/start ")) {
+            for (int i = 0; i < collection.getCollection().size(); i++) {
+                Quiz startQuiz = (Quiz) collection.getCollection().get(i);
+                if (message.split(" ")[1].equals(startQuiz.getName())) {
+                    QuizLearning.start(startQuiz);
+                }
+            }
+        }
+
+
+        //TODO QuizLearn + check logic
     }
 }

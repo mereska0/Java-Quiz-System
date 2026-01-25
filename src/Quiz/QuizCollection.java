@@ -3,14 +3,17 @@ package Quiz;
 import java.util.ArrayList;
 
 public class QuizCollection {
-    ArrayList<String> collection = new ArrayList<>();
-    public void add(String name){
-        collection.add(name);
+    ArrayList<Quiz> collection = new ArrayList<>();
+    public void add(Quiz quiz){
+        collection.add(quiz);
     }
-    public String getCollection(){
+    public ArrayList getCollection(){
+        return collection;
+    }
+    public String getCollectionString(){
         StringBuilder sb = new StringBuilder();
-        for (String quiz: collection){
-            sb.append(quiz).append("\n");
+        for (Quiz quiz: collection){
+            sb.append(quiz.getName()).append("\n");
         }
         return sb.toString().trim();
     }
