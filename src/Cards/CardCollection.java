@@ -19,7 +19,7 @@ public class CardCollection {
         size++;
     }
 
-    protected ArrayList<Card> getCards() {
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
@@ -35,17 +35,20 @@ public class CardCollection {
     public void setName(String name) {
         this.name = name;
     }
+    public String getName() {
+        return name;
+    }
 
     public int getSize() {
         return size;
     }
 
     public void exportCards() throws IOException {
-
+        // TODO
     }
 
     public void importCards() throws IOException {
-
+        // TODO
     }
 
 }
