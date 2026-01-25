@@ -12,7 +12,7 @@ public class QuizLearning {
             System.out.println(i + 1 + " " + question.getText());
             System.out.println(question.getAnswers());
             if (sc.nextInt() != (question.getCorrect() + 1)) {
-                System.out.println("НЕПРАВИЛЬНО\n правильный ответ: " +  (question.getCorrect() + 1));
+                System.out.println("НЕПРАВИЛЬНО" + System.lineSeparator()+ "правильный ответ: " +  (question.getCorrect() + 1)); // :NOTE: System line separator
             }else {
                 System.out.println("ПРАВИЛЬНО");
             }

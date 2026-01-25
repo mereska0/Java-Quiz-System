@@ -13,7 +13,7 @@ public class QuizCollection {
     public String getCollectionString(){
         StringBuilder sb = new StringBuilder();
         for (Quiz quiz: collection){
-            sb.append(quiz.getName()).append("\n");
+            sb.append(quiz.getName()).append(System.lineSeparator());
         }
         return sb.toString().trim();
     }

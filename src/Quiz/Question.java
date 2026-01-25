@@ -26,7 +26,7 @@ public class Question {
     public String getAnswers() {
         StringBuilder sb = new StringBuilder();
         for (String ans: answers){
-            sb.append(ans).append("\n");
+            sb.append(ans).append(System.lineSeparator());
         }
         return sb.toString().trim();
     }
