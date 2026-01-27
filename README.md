@@ -10,7 +10,8 @@ ___
 
 Run the `Gui.Main.java` to test the card logic
 
-<img width="501" height="391" alt="изображение" src="https://github.com/user-attachments/assets/ef9944a4-8b65-4029-96f1-f6f4bb2ba3f3" />
+<img width="493" height="312" alt="изображение" src="https://github.com/user-attachments/assets/8d118eb3-495e-49c0-9cd2-270995688747" />
+
 
 
 *gui, quiz and parsing is still developing*
