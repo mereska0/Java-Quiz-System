@@ -10,10 +10,12 @@ public class Card {
     private String content;
     private boolean showFace;
     private StackPane uiCard;
+    private Text displayText;
 
     public Card(String face, String content) {
         this.face = face;
         this.content = content;
+        displayText = new Text(face);
         showFace = true;
         createUI();
     }
@@ -28,6 +30,11 @@ public class Card {
 
     public void setShowFace(boolean cond) {
         this.showFace = cond;
+        if (showFace) {
+            displayText.setText(face);
+        } else {
+            displayText.setText(content);
+        }
     }
 
     public boolean getShowFace() {
@@ -44,13 +51,17 @@ public class Card {
     }
 
 
+
+    private void flip() {
+        showFace = !showFace;
+    }
+
+
     private void createUI() {
         Rectangle cardShape = new Rectangle(200,300);
         cardShape.setFill(Color.WHITE);
         cardShape.setStroke(Color.BLACK);
         cardShape.setStrokeWidth(5);
-
-        Text displayText = new Text(face);
         displayText.setStyle("-fx-font-size: 20;");
 
         cardShape.setOnMouseClicked(e -> {
@@ -59,10 +70,12 @@ public class Card {
             } else {
                 displayText.setText(face);
             }
+            flip();
         });
 
         uiCard = new StackPane();
         uiCard.getChildren().add(cardShape);
+        uiCard.getChildren().add(displayText);
     }
 
     public StackPane getUICard() {
