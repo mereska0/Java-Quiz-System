@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class CardLearning {
     ArrayList<Card> cards;
@@ -19,6 +18,8 @@ public class CardLearning {
     ArrayList<Card> doneCards;
     ArrayList<Card> undoneCards;
     private Node currentCard;
+    private double mouseAnchorX;
+    private double mouseAnchorY;
 
 
     public CardLearning(CardCollection cards) {
@@ -133,6 +134,7 @@ public class CardLearning {
             Card card = cards.get(index);
             card.setShowFace(true);
             currentCard = card.getUICard();
+            myVariant();
 
 
         }
@@ -142,6 +144,29 @@ public class CardLearning {
         cards = (ArrayList<Card>) undoneCards.clone();
         undoneCards.clear();
         index = 0;
+    }
+
+    public void myVariant() {
+
+        currentCard.setOnMousePressed(pressed -> {
+            mouseAnchorX = pressed.getSceneX() - currentCard.getTranslateX();
+        });
+        currentCard.setOnMouseDragged(dragged -> {
+            double newX = dragged.getSceneX() - mouseAnchorX;
+            double maxX = 50;
+
+            double finalX;
+            if (newX < 0) {
+                finalX = 0;
+            } else if (newX > maxX) {
+                finalX = maxX;
+                swipeRight();
+            } else {
+                finalX = newX;
+            }
+
+            currentCard.setTranslateX(finalX);
+        });
     }
 
 //    public void learn() {
