@@ -27,7 +27,7 @@ public class Main extends Application {
         TextField cardContentField = new TextField("Содержание карточки");
 
         Button cardCreater = new Button("Добавить карточку");
-        Button finish = new Button("Завершить");
+        Button startLearning = new Button("Начать Обучение");
 
         cardCreater.setOnAction(e -> {
             Card card = new Card(cardFaceField.getText(), cardContentField.getText());
@@ -41,7 +41,7 @@ public class Main extends Application {
 
         });
 
-        finish.setOnAction(e -> {
+        startLearning.setOnAction(e -> {
             System.out.println("Всего добавлено " + cards.getSize() + " карточкиф" );
             cardInputStage.close();
             cardLearningWindow(cards);
@@ -52,7 +52,7 @@ public class Main extends Application {
                 cardFaceField,
                 cardContentField,
                 cardCreater,
-                finish
+                startLearning
         );
 
         Scene cardInputScene = new Scene(mainBox, 400, 200);
@@ -62,7 +62,21 @@ public class Main extends Application {
     }
 
     private void cardLearningWindow(CardCollection cards) {
+        Stage learningStage = new Stage();
+        learningStage.setTitle("Обучение карточкам");
 
+        // Создаем CardLearningPane и передаем коллекцию карточек
+        CardLearningPane learningPane = new CardLearningPane(cards);
+
+        // Настраиваем кнопку выхода
+        learningPane.getExitButton().setOnAction(e -> {
+            learningStage.close();
+            System.out.println("Обучение завершено");
+        });
+
+        Scene scene = new Scene(learningPane, 600, 500);
+        learningStage.setScene(scene);
+        learningStage.show();
     }
 
 

@@ -6,20 +6,23 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 
 public class CardLearning {
     ArrayList<Card> cards;
-    int index = 0;
-    int size;
+    private int index = 0;
+    private final int size;
     ArrayList<Card> doneCards;
     ArrayList<Card> undoneCards;
     private Node currentCard;
     private double mouseAnchorX;
-    private double mouseAnchorY;
+    private Runnable onSwipeComplete;
+    private static final double MAX_X = 250;
+    private static final double MIN_X = -250;
+
+
 
 
     public CardLearning(CardCollection cards) {
@@ -29,12 +32,11 @@ public class CardLearning {
         undoneCards = new ArrayList<>();
     }
 
-    public CardLearning(ArrayList<Card> cards) {
-        this.cards = cards;
-        size = this.cards.size();
-        doneCards = new ArrayList<>();
-        undoneCards = new ArrayList<>();
+    public void setOnSwipeComplete(Runnable callback) {
+        this.onSwipeComplete = callback;
     }
+
+
 
     public int sizeDoneCards() {
         return doneCards.size();
@@ -45,6 +47,10 @@ public class CardLearning {
     }
 
     public int sizeCards() {
+        return size;
+    }
+
+    public int currentSizeCards() {
         return cards.size();
     }
 
@@ -52,8 +58,8 @@ public class CardLearning {
         return index;
     }
 
-    public Card getCard(int index) {
-        return cards.get(index);
+    protected Node getCurrentCard() {
+        return currentCard;
     }
 
     private void safeRemove(int index, ArrayList<Card> collection) {
@@ -69,13 +75,13 @@ public class CardLearning {
     }
 
 
-    public Card prev() {
+    public void prev() {
         if (index == 0) {
-            return null;
+            System.out.println("first card");
+            return;
         }
         index--;
         totalRemove(index);
-        return cards.get(index);
     }
 
     public void putDone() {
@@ -88,55 +94,49 @@ public class CardLearning {
         index++;
     }
 
-    private void swipeLeft() {
-        Timeline timeline = new Timeline();
-
-        KeyValue kvX = new KeyValue(currentCard.translateXProperty(), -500);
-        KeyValue kvOpacity = new KeyValue(currentCard.opacityProperty(),0);
-
-        KeyFrame kf = new KeyFrame(Duration.millis(300), kvX, kvOpacity);
-        timeline.getKeyFrames().add(kf);
-        timeline.play();
-        timeline.setOnFinished(e -> {
-            putUndone();
-        });
-    }
-
     private void swipeRight() {
         Timeline timeline = new Timeline();
-
         KeyValue kvX = new KeyValue(currentCard.translateXProperty(), 500);
-        KeyValue kvOpacity = new KeyValue(currentCard.opacityProperty(),0);
-
+        KeyValue kvOpacity = new KeyValue(currentCard.opacityProperty(), 0);
         KeyFrame kf = new KeyFrame(Duration.millis(300), kvX, kvOpacity);
         timeline.getKeyFrames().add(kf);
         timeline.play();
+
         timeline.setOnFinished(e -> {
             putDone();
+            // Вызываем callback после свайпа
+            if (onSwipeComplete != null) {
+                onSwipeComplete.run();
+            }
         });
     }
 
+    private void swipeLeft() {
+        Timeline timeline = new Timeline();
+        KeyValue kvX = new KeyValue(currentCard.translateXProperty(), -500);
+        KeyValue kvOpacity = new KeyValue(currentCard.opacityProperty(), 0);
+        KeyFrame kf = new KeyFrame(Duration.millis(300), kvX, kvOpacity);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
 
-
+        timeline.setOnFinished(e -> {
+            putUndone();
+            // Вызываем callback после свайпа
+            if (onSwipeComplete != null) {
+                onSwipeComplete.run();
+            }
+        });
+    }
 
     public void round() {
-        while (index < cards.size()) {
-            Button prevButton = new Button("Предыдущая карточка");
-            prevButton.setOnAction(e -> {
-                if (index > 0) {
-                    this.prev();
-                    System.out.println("Вернемся к предыдущей карточке");
-                } else {
-                    System.out.println("Это первая карточка");
-                }
-            });
-
+        if (index < cards.size()) {
             Card card = cards.get(index);
             card.setShowFace(true);
             currentCard = card.getUICard();
-            myVariant();
-
-
+            resetCardProperties();
+            cardInteraction();
+        } else {
+            System.out.println("Индекс выходит за границы!");
         }
     }
 
@@ -146,48 +146,55 @@ public class CardLearning {
         index = 0;
     }
 
-    public void myVariant() {
-
+    public void cardInteraction() {
         currentCard.setOnMousePressed(pressed -> {
             mouseAnchorX = pressed.getSceneX() - currentCard.getTranslateX();
         });
+
         currentCard.setOnMouseDragged(dragged -> {
             double newX = dragged.getSceneX() - mouseAnchorX;
-            double maxX = 50;
 
             double finalX;
-            if (newX < 0) {
-                finalX = 0;
-            } else if (newX > maxX) {
-                finalX = maxX;
-                swipeRight();
+            if (newX < MIN_X) {
+                finalX = MIN_X;
+            } else if (newX > MAX_X) {
+                finalX = MAX_X;
             } else {
                 finalX = newX;
             }
 
             currentCard.setTranslateX(finalX);
         });
+
+        currentCard.setOnMouseReleased(released -> {
+            double currentTranslateX = currentCard.getTranslateX();
+            double swipeTrigger = 100;
+
+            if (currentTranslateX >= swipeTrigger) {
+                // Свайп вправо - карточка выучена
+                swipeRight();
+            } else if (currentTranslateX <= -swipeTrigger) {
+                // Свайп влево - карточка не выучена
+                swipeLeft();
+            } else {
+                // Возвращаем на место
+                Timeline reset = new Timeline();
+                KeyValue kv = new KeyValue(currentCard.translateXProperty(), 0);
+                KeyFrame kf = new KeyFrame(Duration.millis(200), kv);
+                reset.getKeyFrames().add(kf);
+                reset.play();
+            }
+        });
     }
 
-//    public void learn() {
-//        Scanner scanner = new Scanner(System.in);
-//        while (doneCards.size() < size) {
-//            this.round(scanner);
-//            if (undoneCards.size() == 0) {
-//                break;
-//            }
-//            System.out.println("У тебя отслось " + undoneCards.size() + " невыученных карточек, желаешь продолжить?");
-//            if (index >= cards.size() && undoneCards.size() > 0) {
-//                switchCond();
-//            }
-//            String ans = scanner.next();
-//            if (ans.equals("нет")) {
-//                System.out.println("Неуч ебанный, пока");
-//                return;
-//            }
-//        }
-//        System.out.println("молодец, ты все выучил");
-//        scanner.close();
-//    }
+    private void resetCardProperties() {
+        if (currentCard != null) {
+            currentCard.setTranslateX(0);  // ← СБРОС сдвига!
+            currentCard.setOpacity(1.0);   // ← СБРОС прозрачности!
+            currentCard.setVisible(true);  // ← Убедимся что видима!
+        }
+    }
+
+
 
 }

@@ -10,8 +10,8 @@ public class CardCollection {
 
     public CardCollection(String name) {
         this.name = name;
-        size = 0;
         cards = new ArrayList<>();
+        size = cards.size();
     }
 
     public void add(Card card) {

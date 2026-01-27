@@ -57,7 +57,7 @@ public class Test {
         sc.nextLine();
         System.out.println("введи /start <название> чтобы запустить квиз");
         message = sc.nextLine().trim();
-        if (message.contains("/start ")) {
+        if (message.contains("/start")) {
             for (int i = 0; i < collection.getCollection().size(); i++) {
                 Quiz startQuiz = (Quiz) collection.getCollection().get(i);
                 if (message.split(" ")[1].equals(startQuiz.getName())) {
