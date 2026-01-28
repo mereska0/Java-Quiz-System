@@ -1,0 +1,7 @@
+package com.example.javaquizsystem.Parsing;
+
+public class CardParser {
+    // это моя война(Егор) так что не парьтесь
+    //пусть тоже давидикс это заебенит ._.
+    // Лаадно так и быть: ДАВИД В БОЙ!!!!
+}
