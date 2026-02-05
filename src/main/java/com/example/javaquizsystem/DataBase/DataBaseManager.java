@@ -5,7 +5,8 @@ import java.sql.*;
 
 /*
 ANOTATION
-75% Deepseek created;)
+
+75% Deepseek created ;)
  */
 
 public class DataBaseManager {
