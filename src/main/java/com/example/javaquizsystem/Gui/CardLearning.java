@@ -9,9 +9,10 @@ import javafx.scene.Node;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CardLearning {
-    ArrayList<Card> cards;
+    List<Card> cards;
     private int index = 0;
     private final int size;
     ArrayList<Card> doneCards;
@@ -25,8 +26,8 @@ public class CardLearning {
 
 
 
-    public CardLearning(CardCollection cards) {
-        this.cards = cards.getCards();
+    public CardLearning(List<Card> cards) {
+        this.cards = cards;
         size = this.cards.size();
         doneCards = new ArrayList<>();
         undoneCards = new ArrayList<>();

@@ -2,16 +2,25 @@ package com.example.javaquizsystem.Cards;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CardCollection {
     private int id;
-    private ArrayList<Card> cards;
+    private List<Card> cards;
     private String name;
     private int size;
 
-    public CardCollection(String name) {
+    public CardCollection(int id, String name) {
+        this.id = id;
         this.name = name;
         cards = new ArrayList<>();
+        size = cards.size();
+    }
+
+    public CardCollection(int id, String name, List<Card> cards) {
+        this.id = id;
+        this.name = name;
+        this.cards = cards;
         size = cards.size();
     }
 
@@ -20,7 +29,7 @@ public class CardCollection {
         size++;
     }
 
-    public ArrayList<Card> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 

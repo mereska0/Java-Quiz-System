@@ -25,7 +25,7 @@ public class Quiz {
     }
 
     public void makeCard(Question question, CardCollection cards) {
-        cards.add(new Card(question.getText(), question.getAnswers()));
+        cards.add(new Card(1, question.getText(), question.getAnswers()));
     }
 
     public HashMap<Integer, Question> getQuestions(){

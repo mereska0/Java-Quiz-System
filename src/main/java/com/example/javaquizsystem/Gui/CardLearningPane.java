@@ -1,5 +1,6 @@
 package com.example.javaquizsystem.Gui;
 
+import com.example.javaquizsystem.Cards.Card;
 import com.example.javaquizsystem.Cards.CardCollection;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public class CardLearningPane extends StackPane {
     private final CardLearning cardLearning;
     private Pane cardContainer;
@@ -17,7 +20,7 @@ public class CardLearningPane extends StackPane {
     private Label statusLabel;
     private Button prevButton;
 
-    public CardLearningPane(CardCollection cardCollection) {
+    public CardLearningPane(List<Card> cardCollection) {
         this.cardLearning = new CardLearning(cardCollection);
 
         // Вот эта строка связывает CardLearning с CardLearningPane!

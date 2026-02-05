@@ -14,7 +14,8 @@ public class Card {
     private StackPane uiCard;
     private Text displayText;
 
-    public Card(String face, String content) {
+    public Card(int id, String face, String content) {
+        this.id = id;
         this.face = face;
         this.content = content;
         displayText = new Text(face);
