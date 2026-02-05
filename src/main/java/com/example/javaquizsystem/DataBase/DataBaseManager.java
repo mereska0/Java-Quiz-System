@@ -1,11 +1,12 @@
 package com.example.javaquizsystem.DataBase;
 
-import com.example.javaquizsystem.Cards.CardCollection;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
+/*
+ANOTATION
+75% Deepseek created;)
+ */
 
 public class DataBaseManager {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/quize_system";
@@ -94,8 +95,16 @@ public class DataBaseManager {
 
     }
 
+//    public static List<CardCollection> getUsersCardCollections(int id) {
+//        // TODO
+//    }
 
+//    public static CardCollection AddCardCollection(int userID) {
+//        // TODO
+//    }
 
-
+//    public static Card addCard(int collectionID) {
+//        // TODO
+//    }
 
 }
