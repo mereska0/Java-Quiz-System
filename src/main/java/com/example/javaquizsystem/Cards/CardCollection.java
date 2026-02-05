@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CardCollection {
+    private int id;
     private ArrayList<Card> cards;
     private String name;
     private int size;
@@ -31,7 +32,8 @@ public class CardCollection {
         cards.remove(card);
         size--;
     }
-
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
     public void setName(String name) {
         this.name = name;
     }

@@ -6,6 +6,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class Card {
+    private int id;
+    private int collectionID;
     private String face;
     private String content;
     private boolean showFace;
@@ -49,6 +51,17 @@ public class Card {
     public String getContent() {
         return content;
     }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public int getCollectionID() {
+        return collectionID;
+    }
+    public void setID(int ID) {
+        this.collectionID = ID;
+    }
+
 
 
 

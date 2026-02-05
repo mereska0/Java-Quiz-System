@@ -5,6 +5,7 @@ module com.example.javaquizsystem {
 
     requires org.kordamp.bootstrapfx.core;
     requires javafx.base;
+    requires java.sql;
 
     opens com.example.javaquizsystem to javafx.fxml;
     exports com.example.javaquizsystem.Cards;
